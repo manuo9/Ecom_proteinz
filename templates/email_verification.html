@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Our Site</title>
+    <style>
+        /* Add your custom styles for the email */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #56d1bf;
+            margin-top:15%;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #333333;
+        }
+        .message {
+            margin-bottom: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color:#27363b;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .cta-button:hover {
+            background-color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to protein-z</h1>
+        <p class="message">Hello {{ customer.full_name }},</p>
+        <p class="message"><p>Thank you for signing up! Please click the link below to verify your email (User ID: {{ customer_pk }}):</p></p>
+        <a class="cta-button" href="{{ validation_link }}">Validate Email</a>
+    </div>
+</body>
+</html>

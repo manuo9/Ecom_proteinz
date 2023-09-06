@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load cart %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> 
+<div class="container">
+    <h2>Search Results for "{{ query }}"</h2>
+    <div class="polu row" id ="polu">       <!-- giving id and class of "products" as "polu" using it in "category" div class --> 
+        {% for prds in products %}
+        
+        <div class="col-2 col-md-6 col-lg-4 my-3" onclick="location.href='https:google.com';" style="cursor: pointer">
+            <div class="card" id='{{prds.id}}' >
+                <img class="card-img-top" src= {{prds.Image.url}} alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title"><a href="test3.html" title="View Products">{{prds.name}}</a></h4>
+                    <p class="ml-2"> {{prds.description}} </p>
+                    <br>
+                    <div class="row">
+                      <div class="col">
+                        <p class="ml-2"><strike style='color:yellow'>₹ {{prds.markedprice}}</strike>  <strong> &nbsp;₹ {{prds.price}}</strong></p>
+                      </div>
+                     {% comment %} {{prds | is_in_cart:request.session.cart}}   {% endcomment %}
+                      <form action="/#{{prds.id}}" method="POST">
+                        {% csrf_token %} 
+                        <div class="col">
+                          <input hidden type = "text" name= 'productid' value = '{{prds.id}}'>
+                          <input type ="submit" class="btn btn-success btn-block" onClick="location.href='#{{ prds.id }}'" style="cursor: pointer" value = "Add to cart"></a>
+                        </div>
+                      </form>       
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+        </div>
+</div>
+{% endblock %}

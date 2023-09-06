@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{%load static%}
+{% block content %}
+{% load cart %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> 
+<style>
+
+/* BLANK SPACE */
+
+.blanke{
+ width:100%;
+ height:40px;
+ 
+}
+
+</style>
+
+
+<div class="row">
+    {% comment %} {% for prds in product %} {% endcomment %}
+    <section class>
+        <div class="container py-5 ">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+              <div class="card">
+                <div class="card-body p-4">
+      
+                  <div class="row">
+      
+                    <div class="col-lg-10">
+                      <h5 class="mb-3"><a href="#!" class="text-body"><i
+                            class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                      <hr>
+      
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                          <p class="mb-1">Shopping cart</p>
+                          <p class="mb-0">You have {{ request.session.cart|length }} items in your cart</p>
+                        </div>
+                        {% comment %} <div>
+                          <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
+                              class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
+                        </div> {% endcomment %}
+                      </div>
+      
+                      <div class="card mb-3">
+                        <div class="card-body">
+                            {% for product_id, quantity in request.session.cart.items %}
+                            {% with prds=product_id|get_product %}
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center" style="margin-bottom: 22px;">
+                                    <div>
+                                        <img src="{{ prds.Image.url }}"
+                                            class="img-fluid rounded-3" alt="{{ prds.name }}"  style="width: 95px;">
+                                    </div>
+                                    <div class="ms-3">
+                                        <h5>{{ prds.name }}</h5>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center" style="padding-bottom: 20px;">
+                                    <div style="width: 62px; height: 30px;">
+                                        <a href="{% url 'remove_from_cart' prds.id %}" class="text-danger"><i class="fas fa-minus-circle"></i></a> 
+                                        <span class="fw-normal mb-0">{{ quantity }}</span>
+                                        <a href="{% url 'add_to_cart' prds.id %}" class="text-success"><i class="fas fa-plus-circle"></i></a>
+                                    </div>
+                                    <div style="width: 80px;">
+                                        <h5 class="mb-0">&nbsp;&nbsp;&nbsp;{{ prds.price|calculate_total:quantity }} ₹</h5>    {% comment %} using cart.py to get total price and quantity {% endcomment %}
+                                       
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            {% endwith %}
+                            {% endfor %}
+                            <h4>Cart Total: {{ request.session.cart|all_total }} ₹</h4>
+                         </div>
+
+                            
+                            <button type="button" style =  "float: center" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                              checkout
+                            </button>
+                            <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">CheckOut</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class = "m-2 p-2">
+          <form action="/checkout" method = "POST">
+
+           {% csrf_token %}
+           <div class="form-group">
+            <label for="">Address</label>
+            <input type="" name ="address" class="form-control" id="email">
+          </div>
+
+          <div class="form-group">
+            <label for="">Phone number</label>
+            <input type="" name ="phone" class="form-control" id="email">
+          </div>
+          
+          <input type="submit" class = "btn float-right btn-outline-info col-lg-6 " value= "checkout">
+
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+         
+                          </div>
+                        </button>
+                        
+                    </div>
+                    </div>
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% comment %} {% endfor %} {% endcomment %}
+    </div>
+  
+
+
+    {% endblock %}

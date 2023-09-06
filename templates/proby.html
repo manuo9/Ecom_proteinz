@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{%load static%}
+{% block content %}
+{% load cart %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> 
+<style>
+
+/* BLANK SPACE */
+
+.blanke{
+ width:100%;
+ height:40px;
+ 
+}
+
+</style>
+<div class ="blanke" > </div>
+
+<h1 style="text-align: center ; background-color: #27363b; height:65px; padding-top: 10px; "><strong><span class="">  {{category.name}} </span></strong></h1>
+
+<div class="polu row" id ="polu">       <!-- giving id and class of "products" as "polu" using it in "category" div class --> 
+  {% for prds in product %}
+  
+  <div class="col-2 col-md-6 col-lg-4 my-3" onclick="location.href='https:google.com';" style="cursor: pointer">
+      <div class="card" id='{{prds.id}}' >
+          <img class="card-img-top" src= {{prds.Image.url}} alt="Card image cap">
+          <div class="card-body">
+              <h4 class="card-title"><a href="test3.html" title="View Products">{{prds.name}}</a></h4>
+              <br>
+              <div class="row">
+                <div class="col">
+                  <p class="ml-2"><strike style='color:yellow'>₹ {{prds.markedprice}}</strike>  <strong> &nbsp;₹ {{prds.price}}</strong></p>
+                </div>
+                {% comment %} {{prds | is_in_cart:request.session.cart}} {% endcomment %}
+                <form action="/#3" method="POST">
+                  {% csrf_token %} 
+                  <div class="col">
+                    <input hidden type = "text" name= 'productid' value = '{{prds.id}}'>
+                    <input type ="submit" class="btn btn-success btn-block"  value = "Add to cart"></a>
+                  </div>
+                </form>       
+            </div>
+          </div>
+      </div>
+  </div>
+  
+  {% endfor %}
+  </div>
+  
+
+
+    {% endblock %}

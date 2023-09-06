@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{%load static%}
+{% block content %}
+{% load cart %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> 
+<style>
+
+/* BLANK SPACE */
+
+.blanke{
+ width:100%;
+ height:40px;
+ 
+}
+
+</style>
+
+
+<div class="row">
+
+    <section class>
+        <div class="container py-5 ">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+              <div class="card">
+                <div class="card-body p-4">
+      
+                  <div class="row">
+      
+                    <div class="col-lg-10">
+                    
+                      <hr>
+      
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                          
+                      
+                        </div>
+                       
+                      </div>
+      
+                      <div class="card mb-3">
+                        <h1><span class="h2 ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status</span></h1>
+
+                        <div class="card-body">                          
+                            {% for order in orders reversed%}
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center" style="margin-bottom: 22px;">
+                                    <div>
+                                        <img src="{{ order.product.Image.url }}"
+                                            class="img-fluid rounded-3" alt="{{ order.price }}"  style="width: 95px;">
+                                    </div>
+                                    <div class="ms-3">
+                                        <h5>{{ order.product.name }}</h5>
+                                    </div>
+                                </div>
+                                    <span style="padding-top: 20px;">{{ order.quantity }}</span>
+                                    <span style = " padding-top : 18px">{{ order.date }}</span>
+                                    <div class="d-flex flex-row align-items-center" style="padding-bottom: 20px;">
+                                    <span class="mb-0">&nbsp;&nbsp;&nbsp;{{ order.price|calculate_total:order.quantity }} ₹</span>   
+                                </div>    
+                                {% if order.status %}                             
+                                <small class= "badge badge-success" style="height: 35px;padding-top: 11px;margin-top: 16px;"> Completed</small>                               
+                                {%else%}
+                                <small class= "badge badge-danger" style="height: 35px;padding-top: 11px;margin-top: 16px;"> Pending</small>
+                                {%endif%}  
+                            </div>      
+                            {% endfor %}
+                           
+                        </div>
+
+                          </div>
+                        
+                    </div>
+                    </div>
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  
+
+
+    {% endblock %}

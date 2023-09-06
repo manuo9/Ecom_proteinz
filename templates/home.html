@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+{%load static%}
+{% block content %}
+{% load cart %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">   
+
+
+<style>
+
+
+    /* Corousal */ 
+
+    .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/%3e%3c/svg%3e");
+    }
+          
+    .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
+    }
+      
+    .carousel-inner {
+      margin-top : 3;
+    }
+
+
+    /* Edu Div */
+      
+    .row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      
+    }
+  
+    .column {
+      width:515px;
+      padding:0;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    
+    .first-column {
+      
+      position: relative;
+    }
+    .second-column {
+      
+      position: relative;
+    }
+    .third-column {
+     
+      position: relative;
+    }
+    
+    .btn-light {
+      position: absolute;
+      margin-top:100px;
+      margin-right:55px;
+      top:191px;
+      right:288px;
+      background-color:  #27363b  ;
+      color:white;
+    }
+    
+    .some-page-wrapper{
+      border-top:solid;
+      border-bottom:solid;
+      border-color:white;
+      border-width: 9px;
+      margin-top:12px;
+    }
+    
+    .h3-uppercase , .h4-uppercase , .h5-uppercase {
+      position: absolute;
+      margin-top:30px;
+      margin-left:44px;
+      font-family: Blender Pro,sans-serif;
+      font-weight:bold;
+      font-size:24px;
+      top: 20px;
+      left: 75px;
+      color :white;
+    }
+    
+    h1{
+      background-color:#27363b;
+      margin-top:20px;
+      height: 65px;
+      padding-top: 10px;
+      margin-bottom: 20px;
+    }
+    .h2-uppercase{
+      color:white;
+      
+    }
+
+
+  
+
+    /* Accordion */
+
+    .accordion {
+      background-color: #7fa1ac ;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      transition: 0.4s;
+    }
+    
+     .accordion:hover {
+      background-color: white; 
+    }
+    
+    .panel {
+      padding: 0 18px;
+      display: none;
+      background-color: #27363b ;
+      overflow: hidden;
+    }
+
+
+    pre{
+      font-size:14pt;
+      background-color: #74b3ad ;
+    }
+
+
+</style>
+
+<div id="carouselExampleIndicators" class="carousel slide carousel-fade " data-mdb-ride="true">
+    <div class="carousel-indicators mb-3">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" ></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner p-3 my-5" >
+      <div class="carousel-item active "  data-mdb-interval="1000 ">
+        <img src="{% static '/images/carousel/5.png'%}" class="d-block mx-auto w-50" height="350">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static '/images/carousel/12(1).png'%}" class="d-block mx-auto w-50" height="350" >
+      </div>
+      <div class="carousel-item">
+        <img src="{% static '/images/carousel/13.png'%}" class="d-block  mx-auto w-50" height="350">
+      </div>
+    </div>
+    <button class="carousel-control-prev" role="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" ></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  
+ 
+<!--Three category - 1. Build Muscles 2. Fat Loss 3. Vitamins -->
+ 
+<h1 style="text-align: center"><strong><span class="h2-uppercase ">CATEGORY</span></strong></h1>
+
+
+
+<div class="row">
+  {% for ctg in category %}
+  {% comment %} <div class="col-2 col-md-6 col-lg-4 my-3" input type="button" onClick="document.getElementById('polu').scrollIntoView();" style = "cursor:pointer"/>  {% endcomment %}
+
+  <div class="col-2 col-md-6 col-lg-4 my-3"  onClick="location.href='#polu'" style = "cursor:pointer"/>     <!-- giving id and class of "products" as "polu" using it here in location.href  --> 
+      <div class="card">
+          <img class="card-img-top" src= {{ctg.Image.url}} alt="Card image cap">
+          <div class="card-body">
+              {% comment %} <h4 class="card-title"><a href="/?Categories=1" title="View Products">{{ctg.name}}</a></h4>  <!--  ?Categories - class name of model  --> {% endcomment %}
+              <h4 class="card-title"><a href="{% url 'probycat' ctg.slug %}">{{ctg.name}}</a></h4>
+              <br>
+              <div class="row">
+                  <div class="col">
+                  </div>
+                  <div class="col">
+                     
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endfor %}
+  </div>
+
+  <h1 style="text-align: center"><strong><span class="h2-uppercase ">All Products</span></strong></h1>
+
+
+  <div class="polu row" id ="polu">       <!-- giving id and class of "products" as "polu" using it in "category" div class --> 
+    {% for prds in product %}
+    
+    <div class="col-2 col-md-6 col-lg-4 my-3"  style="cursor: pointer">
+        <div class="card" id='{{prds.id}}' >
+            <img class="card-img-top" src= {{prds.Image.url}} alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title"><a href={% url 'product_detail' prds.id %} title="View Products">{{prds.name}}</a></h4>
+                <p class="ml-2"> {{prds.description}} </p>
+                <br>
+                <div class="row">
+                  <div class="col">
+                    <p class="ml-2"><strike style='color:yellow'>₹ {{prds.markedprice}}</strike>  <strong> &nbsp;₹ {{prds.price}}</strong></p>
+                  </div>
+                 {{prds | is_in_cart:request.session.cart}}  
+                  <form action="/#{{prds.id}}" method="POST">
+                    {% csrf_token %} 
+                    <div class="col">
+                      <input hidden type = "text" name= 'productid' value = '{{prds.id}}'>
+                      <input type ="submit" class="btn btn-success btn-block" onClick="location.href='#{{ prds.id }}'" style="cursor: pointer" value = "Add to cart"></a>
+                    </div>
+                  </form>       
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endfor %}
+    </div>
+
+
+  
+<h1 style="text-align: center"><strong><span class="h2-uppercase ">EDUCATION AND RESOURCES</span></strong></h1>
+  
+
+<div class='some-page-wrapper'>
+  <div class='row'>
+    <div class='column'>
+      <div class='first-column'>
+        <div class="amp-banner__content">
+          <div class="h3-uppercase ">
+          Protein Explained
+          </div>
+            <input type="button" onclick="window.location.href='https://www.youtube.com/watch?v=wvTv8TqWC48';" class="btn btn-light btn-lg" value="Watch More" style= "padding-left: 33px;"   />
+          </div>
+        <img src = "{% static '/images/faces/body.png'%}"  alt="Card image cap" width="510" height="400">
+      </div>
+    </div>
+    
+    <div class='column '>
+      <div class='second-column'>
+        <div class="amp-banner__content">
+          <div class="h4-uppercase ">
+          Articles & Advices
+          </div>
+            <input type="button" onclick="window.location.href='https://www.everydayhealth.com/fitness/all-articles/';" class="btn btn-light btn-lg" value="Read More"/>
+          </div>
+        <img src = "{% static '/images/faces/body2.jpg'%}"  alt="Card image cap" width="510" height="400">
+      </div>
+    </div>
+
+
+    <div class='column '>
+      <div class='third-column'>
+        <div class="amp-banner__content">
+          <div class="h5-uppercase ">
+          Protein Recipes
+          </div>
+            <input type="button" onclick="window.location.href='https://www.healthline.com/nutrition/indian-diet-weight-loss#what-is-it';" class="btn btn-light btn-lg" value="Cook More"/>
+          </div>
+        <img src = "{% static '/images/faces/body3.png'%}"  alt="Card image cap" width="570" height="400">
+      </div>
+    </div>
+
+  </div>
+</div>
+  
+
+<button class="accordion text-center"><b>WHY PROTEIN-Z?</b></button>
+<div class="panel">
+  <h3 class="font-sm-semibold font-bold mb-2">
+    Why choose Protein-z? 
+  </h3>
+  <div class="font-regular">   
+    <pre>
+As a large lot is into fitness and wellness, we vow to deliver them authenticity. You must be wondering how do we keep a check on it. Here's why you should rely upon Protein-z:
+Authentic Online Protein Supplements: We have reduced the gap between the importer and the customer, which keeps the products away from adulteration in terms of quality and quantity.
+You can check our authenticity page for more details.
+
+Affordable Rates: Buy genuine, stay fit is our motto, which applies to everything in terms of affordable pricing, superior quality, and quantity.
+
+Detailed information on every product: Before you buy a product say, whey protein then we make sure that you're well knowledged/aware with the features and usage instructions of the product.
+
+Consultation with health experts: If you need information other than what's there on the product, we have certified fitness experts who could guide you on your nutritional and diet plan. 
+You could connect with them through SMS or emails to answer your query at no cost.
+Easy delivery and return at your doorstep.<br>
+Top Brands: Dymatize | Optimum Nutrition | Muscletech | Isopure <br>
+Top Categories: Whey Protein | Whey Protein Isolate | Mass Gainer | Protein Bars | Hydrolyzed Whey | Multivitamins Tablets 
+    </pre>
+  </div>
+</div>
+
+<button class="accordion text-center"><b>WHAT WE OFFER ? </b></button>
+<div class="panel">
+  <h3 class="font-sm-semibold font-bold mb-2">
+   Product we offer ? 
+  </h3>
+  <div class="font-regular"> 
+    <pre>  
+    1. Sports Nutrition Supplements
+    If you’re a hustler and you live for sports and fitness, then don’t just rely on a normal diet plan. With us, you could add:
+
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>Whey Protein
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>Mass gainers
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>Pre/post workout essentials
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>General wellness
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>Protein foods/drinks to maintain your fitness.<br>
+    2. Buy Vitamins & Supplements
+    Thinking of which supplement and vitamin you need for your fitness plan? HealthXP's range of Multivitamins ( men, women, children), antioxidant extracts, omega 3/ fish oil, speciality supplements would make you a fitter and better you.<br>
+    3. Buy Ayurveda & Herbs
+    If you want to get fit organically, then check out these products on our portal:
+
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>Herbal Gainers
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>Weight loss herbs
+    <span style="display: inline-block; font-size: 15px; color: #000000;">⚫</span>Herbal Extracts
+    </pre>
+  </div>
+</div>
+
+<script> 
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }  
+  </script>
+{% endblock %}
